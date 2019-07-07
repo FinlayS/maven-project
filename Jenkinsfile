@@ -1,5 +1,5 @@
 pipeline {
-    agent master
+    agent any
     stages{
         stage('Build'){
             steps {
@@ -7,17 +7,9 @@ pipeline {
             }
             post {
                 success {
-                    echo 'Now CArchiving...'
+                    echo 'Now Archiving...'
                     archiveArtifacts artifacts: '**/target/*.war'
                 }
-                failure {
-                    echo 'It Bloody FAILED!'
-                }
-            }
-        }
-        stage ('Deploy to Staging'){
-            steps {
-                build job: 'Deploy-to-staging'
             }
         }
     }
