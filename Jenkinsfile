@@ -3,12 +3,15 @@ pipeline {
     stages{
         stage('Build'){
             steps {
-                sh 'maven clean package'
+                sh 'mvn clean package'
             }
             post {
                 success {
                     echo 'Now CArchiving...'
                     archiveArtifacts artifacts: '**/target/*.war'
+                }
+                failure {
+                    echo 'It Bloody FAILED!'
                 }
             }
         }
